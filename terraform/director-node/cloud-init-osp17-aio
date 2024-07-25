@@ -1,0 +1,39 @@
+#cloud-config
+hostname: aio-osp17
+fqdn: aio-osp17.lab.local
+manage_etc_hosts: true
+debug: true
+output: { all: "| tee -a /var/log/cloud-init-output.log" }
+package_upgrade: false
+rh_subscription:
+    username: changeme
+    password: changeme
+    auto-attach: false
+    add-pool: [ 'changeme' ]
+    disable-repo: [ '*' ]
+users:
+  - default
+  - name: stack
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: wheel,adm
+    ssh_pwauth: True
+    ssh_authorized_keys:
+      - changeme
+  - name: root
+    ssh_authorized_keys:
+      - changeme
+ssh_pwauth: True
+disable_root: false
+chpasswd:
+  list: |
+    root:toor
+    stack:stack
+  expire: false
+runcmd:
+  - subscription-manager release --set=9.2
+  - subscription-manager repos --enable=rhel-9-for-x86_64-baseos-rpms --enable=rhel-9-for-x86_64-appstream-rpms --enable=rhel-9-for-x86_64-highavailability-rpms --enable=openstack-17.1-for-rhel-9-x86_64-rpms --enable=fast-datapath-for-rhel-9-x86_64-rpms
+  - systemctl enable --now cockpit.socket
+  - dnf update -y
+  - dnf install -y python3-tripleoclient tmux wget
+power_state:
+   mode: reboot
