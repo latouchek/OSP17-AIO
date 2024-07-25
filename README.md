@@ -1,4 +1,4 @@
-# Deploying OSP 17 All-in-One on a VM Using KVM
+# Deploying an OSP 17 All-in-One Lab 
 
 
 ## Introduction
