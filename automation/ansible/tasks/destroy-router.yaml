@@ -1,0 +1,9 @@
+- hosts: localhost
+  tasks:
+
+    - name: Destroy  router "router-{{project}}"
+      ignore_errors: yes
+      os_router:
+        state: absent
+        name: router-{{project}}
+        project: "{{ project }}"

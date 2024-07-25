@@ -1,0 +1,5 @@
+  - name: delete provider-sriov-{{ item.ip }}
+    os_server:
+          state: absent
+          name: "provider-sriov-{{ item.ip }}"
+    with_items: "{{nodes}}"

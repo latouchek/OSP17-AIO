@@ -1,0 +1,10 @@
+  - name: deploy provider nets
+    os_network:
+      state: present
+      name: "{{ item.name }}"
+      external: True
+      shared: True
+      provider_network_type: vlan
+      provider_physical_network: "{{ item.provider_physical_network }}"
+      provider_segmentation_id: "{{ item.provider_segmentation_id }}"
+    with_items: "{{provider_network}}"

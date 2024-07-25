@@ -1,0 +1,11 @@
+- hosts: localhost
+  tasks:
+
+    - name: destroy  private networks
+      os_network:
+        state: absent
+        name: "{{ item }}"
+        project: "{{ project }}"
+      with_items:
+        - web-private-net-{{ project }}
+        - database-private-net-{{ project }}

@@ -1,0 +1,96 @@
+- hosts: localhost
+  tasks:
+    - name: create  volume
+      os_volume:
+            state: present
+            size: 50
+            display_name: "volume-disco"
+    - name: "deploy instance instance-disco"
+      os_server:
+            state: present
+            name: "instance-disco"
+            image: "ubuntu-disco"
+            flavor: m1.small
+            security_groups: allowall
+            key_name: "undercloud-key"
+            boot_from_volume: True
+            volumes: "volume-disco"
+            terminate_volume: yes
+            auto_ip: yes
+            nics:
+              - net-name: private-net
+            userdata: |
+              #cloud-config
+              cloud_init_modules:
+                - migrator
+                - cc_disk_setup
+                - bootcmd
+                - write-files
+                - growpart
+                - resizefs
+                - set_hostname
+                - update_hostname
+                - update_etc_hosts
+                - rsyslog
+                - users-groups
+                - ssh
+              cloud_config_modules:
+                - mounts
+                - locale
+                - set-passwords
+                - yum-add-repo
+                - timezone
+                - disable-ec2-metadata
+                - runcmd
+                - package-update-upgrade-install
+              cloud_final_modules:
+                - scripts-per-once
+                - scripts-per-boot
+                - scripts-per-instance
+                - scripts-user
+                - ssh-authkey-fingerprints
+                - keys-to-console
+                - final-message
+              hostname: instance
+              fqdn: instance.lab.local
+              manage_etc_hosts: true
+              debug: true
+              package_upgrade: true
+              users:
+                - default
+                - name: stack
+                  sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+                  groups: wheel,adm
+                  ssh_pwauth: True
+                  ssh_authorized_keys:
+                    - {{IDRSAPUB}}
+                - name: root
+                  ssh_authorized_keys:
+                    - {{IDRSAPUB}}
+              ssh_pwauth: True
+              disable_root: false
+              chpasswd:
+                list: |
+                  root:toor
+                  stack:stack
+                expire: false
+              packages:
+                - wget
+                - httpd
+                - yum-utils
+                - createrepo
+                - git
+                - screen
+                - vim
+                - tmux
+              fs_setup:
+               - label: None
+                 filesystem: 'ext4'
+                 device: '/dev/vdb'
+                 partition: 'auto'
+
+              mounts:
+
+               - [ /dev/vdb, /OCPOSP, "ext4", "defaults,noatime"]
+
+              mount_default_fields: [ None, None, "ext4", "defaults,noatime", "0","2" ]

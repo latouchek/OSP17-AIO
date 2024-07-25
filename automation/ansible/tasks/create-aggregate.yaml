@@ -1,0 +1,23 @@
+- hosts: localhost
+  tasks:
+    - name: create host agreagate agg1
+      os_nova_host_aggregate:
+       state: present
+       name: agg1
+       region_name: AZ1
+       metadata:
+         epa: false
+       hosts:
+         - lab-osdcompute00.lab.local
+         - lab-osdcompute01.lab.local
+         - lab-osdcompute02.lab.local
+    - name: create host agreagate eppagg1
+      os_nova_host_aggregate:
+       state: present
+       name: agg1
+       region_name: EPA-AZ1
+       metadata:
+         epa: true
+       hosts:
+         - lab-compute00.lab.local
+         - lab-compute01.lab.local

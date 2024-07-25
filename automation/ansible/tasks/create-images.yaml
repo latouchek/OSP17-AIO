@@ -1,0 +1,8 @@
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+      - name: Download and create  images
+        include: ./tasks/upload-images.yaml
+        with_items:
+          - { url: 'https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2', dest: './files/fedora40-server' , imagename: 'fedora40-server'}

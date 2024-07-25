@@ -1,0 +1,18 @@
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create tenant
+      os_project:
+          state: present
+          name: demoproject2
+          description: "second demoproject"
+          domain_id: default
+          enabled: True
+    - name: Create users
+      os_user:
+          default_project: demoproject2
+          state: present
+          name: klatouch
+          password: secret
+          domain_id: default

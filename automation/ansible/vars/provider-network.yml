@@ -1,0 +1,38 @@
+provider_network:
+  - name: provider_network1
+    netname: provider_network1
+    state: present
+    external: True
+    shared: True
+    provider_network_type: vlan
+    provider_segmentation_id: 1001
+    provider_physical_network: sriov
+    subnet:
+        state: present
+        network_name: provider_network1
+        name: "provider-subnet1"
+        ip_version: 4
+        cidr: 10.200.1.0/24
+        gateway_ip: 10.200.1.1
+        enable_dhcp: yes
+        dns_nameservers: 192.168.2.10
+
+  # - name: public-net
+  #   netname: public-net
+  #   state: present
+  #   external: True
+  #   shared: True
+  #   provider_network_type: vlan
+  #   provider_segmentation_id: 205
+  #   provider_physical_network: datacentre
+  #   subnet:
+  #       state: present
+  #       network_name: public-net
+  #       name: public-subnet
+  #       ip_version: 4
+  #       cidr: 172.20.0.0/24
+  #       gateway_ip: 172.20.0.1
+  #       enable_dhcp: yes
+  #       allocation_pool_start: 172.20.0.51
+  #       allocation_pool_end: 172.20.0.250
+  #       dns_nameservers: 192.168.2.10

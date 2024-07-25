@@ -549,7 +549,7 @@ This command creates a router named `vrouter`.
 openstack router set vrouter --external-gateway public
 ```
 This command sets the external gateway of `vrouter` to the `public` network, enabling routing to the outside world.   
-3. Add an Interface to the Internal Network:
+3. **Add an Interface to the Internal Network**:
 
 ```bash
 openstack router add subnet vrouter private-net
@@ -666,4 +666,24 @@ openstack server create --flavor medium --image centos9 --network provider_netwo
 
 This command creates an instance named `centos-test` using the CentOS image and the specified flavor, network, security group, and keypair.
 
+3. **Check the result**
+
+- Using CLI
+
+  ```bash
+  [stack@aio-osp17 ~]$ openstack server list
+  +--------------------------------------+-------------+--------+---------------------------------------+---------+----------+
+  | ID                                   | Name        | Status | Networks                              | Image   | Flavor   |
+  +--------------------------------------+-------------+--------+---------------------------------------+---------+----------+
+  | b5379b8d-927c-4172-a47e-3940103d223d | cirros-test | ACTIVE | provider_network_vlan20=192.168.20.52 | cirros  | small    |
+  | 29e97d6b-921f-427c-84ad-c9817ab4b7ae | centos-test | ACTIVE | provider_network_vlan20=192.168.20.98 | centos9 | m1.small |
+  +--------------------------------------+-------------+--------+---------------------------------------+---------+----------+
+  ```
+
+- Using GUI
+
+  ![Nettopo](Pix/OSP17-net.png)
+
+
 These steps complete the configuration of your OpenStack environment, enabling external networking, floating IPs, and integrating with existing physical networks. By following these steps, you ensure that your OpenStack setup is fully operational and ready for deploying and managing virtual machines.
+

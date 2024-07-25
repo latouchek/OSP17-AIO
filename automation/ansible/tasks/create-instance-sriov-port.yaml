@@ -1,0 +1,15 @@
+  - name: deploy provider-sriov-{{ item.ip }}
+    os_server:
+          state: present
+          name: "provider-sriov-{{ item.ip }}"
+          image: "{{ item.image }}"
+          flavor: "{{ item.flavor }}"
+          key_name: "undercloud-key"
+          boot_from_volume: True
+          terminate_volume: True
+          config_drive: True
+          wait: True
+          nics:
+            - port-name: "vf-{{ item.ip }}"
+          userdata: "{% include 'templates/userdata.j2' %}"
+    with_items: "{{nodes}}"

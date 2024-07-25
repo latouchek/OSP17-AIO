@@ -1,0 +1,15 @@
+- hosts: localhost
+  tasks:
+
+    - name: Create  router
+      ignore_errors: yes
+      os_router:
+        state: present
+        name: "router-{{project}}"
+        project: "{{ project }}"
+        network: "{{ org }}-public-net"
+        external_fixed_ips:
+          - subnet: "{{ org }}-public-subnet"
+        interfaces:
+          - "web-private-subnet-{{project}}"
+          - "database-private-subnet-{{project}}"

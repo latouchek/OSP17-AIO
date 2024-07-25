@@ -1,0 +1,59 @@
+#cloud-config
+hostname: {{ item.hostname }}
+fqdn: {{ item.hostname }}.lab.local
+manage_etc_hosts: true
+package_upgrade: true
+debug: True
+ssh_pwauth: True
+disable_root: false
+users:
+  - default
+  - name: stack
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: wheel,adm
+    ssh_pwauth: True
+    ssh_authorized_keys:
+      - ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBACn2xfgfgNCabNbQZqKqw2R0JB+PYYwc0L8aXgiO0toJgaTNSsKTtCHlsgJsxBb+C7SCOew9Yf1zH2Hs3+gnxWkkgB0MtGvovNgbATbyWfLANxL4HWugHR54gqJ5m2Kd78oTjErG8bPVero/u9d60Y2kZFK0Pmdu+4ZoFiTZNMjg+RvDQ== latouche@metal-robot-music
+  - name: root
+    ssh_authorized_keys:
+      - ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBACn2xfgfgNCabNbQZqKqw2R0JB+PYYwc0L8aXgiO0toJgaTNSsKTtCHlsgJsxBb+C7SCOew9Yf1zH2Hs3+gnxWkkgB0MtGvovNgbATbyWfLANxL4HWugHR54gqJ5m2Kd78oTjErG8bPVero/u9d60Y2kZFK0Pmdu+4ZoFiTZNMjg+RvDQ== latouche@metal-robot-music
+ssh_pwauth: True
+disable_root: false
+chpasswd:
+  list: |
+    root:toor
+    stack:stack
+  expire: false
+# write_files:
+#   - path: "/etc/sysconfig/network-scripts/ifcfg-eth0"
+#     permissions: "0644"
+#     owner: "root"
+#     content: |
+#       BOOTPROTO=none
+#       IPADDR={{ item.ip }}
+#       PREFIX=25
+#       GATEWAY=10.200.1.1
+#       DEVICE=eth0
+#       ONBOOT=yes
+#       TYPE=Ethernet
+#       USERCTL=no
+# runcmd:
+#   # - rm /etc/sysconfig/network-scripts/ifcg-eth0
+#   - reboot
+#cloud-config
+# debug: True
+# ssh_pwauth: True
+# disable_root: false
+# users:
+#   - default
+#   - name: stack
+#     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+#     groups: wheel,adm
+#     ssh_pwauth: True
+# ssh_pwauth: True
+# disable_root: false
+# chpasswd:
+#   list: |
+#     root:toor
+#     stack:stack
+#   expire: false

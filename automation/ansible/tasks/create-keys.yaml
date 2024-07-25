@@ -1,0 +1,9 @@
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create keypair {{keyname}}
+      os_keypair:
+          state: present
+          name: "{{keyname}}"
+          public_key_file: "{{ '~' | expanduser }}/.ssh/authorized_keys"

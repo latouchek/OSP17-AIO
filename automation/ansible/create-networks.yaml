@@ -1,0 +1,8 @@
+- hosts: localhost
+  vars_files:
+      - vars/provider-network.yml
+  tasks:
+    - name: creating net
+      include: ./tasks/create-net.yaml
+    - name: creating subnet
+      include: ./tasks/create-subnet.yaml

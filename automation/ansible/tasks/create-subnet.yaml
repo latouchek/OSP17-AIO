@@ -1,0 +1,12 @@
+  - name: create subnets
+    os_subnet:
+        state: present
+        network_name: "{{ item.netname }}"
+        name: "{{ item.subnet.name }}"
+        ip_version: 4
+        cidr: "{{ item.subnet.cidr }}"
+        gateway_ip: "{{ item.subnet.gateway_ip }}"
+        enable_dhcp: yes
+        dns_nameservers:
+          - "{{ item.subnet.dns_nameservers }}"
+    with_items: "{{ provider_network }}"

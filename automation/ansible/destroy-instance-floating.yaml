@@ -1,0 +1,11 @@
+- hosts: localhost
+  tasks:
+    - name: "destroy instance instance-fedora27"
+      os_server:
+            state: absent
+            name: "instance-fedora27"
+    - name: destroy  volume
+      os_volume:
+            state: absent
+            size: 50
+            display_name: "volume-fedora27"

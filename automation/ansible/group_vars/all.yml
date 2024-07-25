@@ -1,0 +1,18 @@
+rhn_username:
+rhn_password:
+pool:
+keyname: undercloud-key
+IDRSAPUB : ""
+os_project_name: admin
+os_username: admin
+os_password: password
+os_region: regionOne
+os_az: nova
+image: fedora28
+netname: private
+provider-net: vlan-150
+cidr_provider_net: 172.16.40.0/24
+provider_phys: sriov
+segmentation: 1002
+sg: allowall
+keyname: kl

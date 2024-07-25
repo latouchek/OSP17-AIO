@@ -1,0 +1,15 @@
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Create flavors"
+      os_nova_flavor: state={{ item.state }} name={{ item.name }} ram={{ item.ram }} vcpus={{ item.vcpus }} disk={{ item.disk }} ephemeral={{ item.ephemeral }} flavorid={{ item.flavorid }}
+      with_items:
+        - { state: 'present', name: 'm1.small' , ram: '512' , vcpus: '1' , disk: '0' , ephemeral: '1' , flavorid: '1' }
+        - { state: 'present', name: 'm1.fat' , ram: '51200' , vcpus: '16' , disk: '0' , ephemeral: '15' , flavorid: '2' }
+        - { state: 'present', name: 'm1.medium' , ram: '1024' , vcpus: '1' , disk: '0' , ephemeral: '0' , flavorid: '3' }
+        - { state: 'present', name: 'm1.large' , ram: '2048' , vcpus: '8' , disk: '0' , ephemeral: '0' , flavorid: '4' }
+        - { state: 'present', name: 'm1.xlarge' , ram: '8192' , vcpus: '8' , disk: '0' , ephemeral: '0' , flavorid: '5' }
+        - { state: 'present', name: 'm2.large' , ram: '8192' , vcpus: '2' , disk: '0' , ephemeral: '0' , flavorid: '6' }
+        - { state: 'present', name: 'm3.xlarge' , ram: '16384' , vcpus: '4' , disk: '0' , ephemeral: '0' , flavorid: '7' }
+        - { state: 'present', name: 's1.large' , ram: '2048' , vcpus: '2' , disk: '0' , ephemeral: '0' , flavorid: '8' }

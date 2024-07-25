@@ -1,0 +1,54 @@
+nodes:
+  - name: sriov1
+    hostname: sriov1-centos7
+    flavor: m3.xlarge
+    ip: 10.200.1.27
+    network: provider_network1
+    subnet: provider-subnet1
+    image: centos7
+    # az: AZ1
+
+  - name: sriov2
+    hostname: sriov22
+    flavor: m3.xlarge
+    ip: 10.200.1.28
+    network: provider_network1
+    subnet: provider-subnet1
+    image: centos7
+    az: AZ1
+
+  - name: sriov3
+    hostname: sriov35
+    flavor: m3.xlarge
+    ip: 10.200.1.29
+    network: provider_network1
+    subnet: provider-subnet1
+    image: centos7
+    az: AZ1
+
+  - name: sriov4
+    hostname: sriov45
+    flavor: m3.xlarge
+    ip: 10.200.1.30
+    network: provider_network1
+    subnet: provider-subnet1
+    image: centos7
+    az: AZ1
+
+  - name: sriov-epea-centos71
+    hostname: sriov-epea-centos71
+    flavor: epa.xlarge
+    ip: 10.200.1.31
+    network: provider_network1
+    subnet: provider-subnet1
+    image: centos7
+    az: AZ1
+
+  - name: sriov-epea-centos72
+    hostname: sriov-epea-centos72
+    flavor: epa.xlarge
+    ip: 10.200.1.32
+    network: provider_network1
+    subnet: provider-subnet1
+    image: centos7
+    az: AZ1

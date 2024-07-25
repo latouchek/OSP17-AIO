@@ -1,0 +1,18 @@
+  - name: create port in sriov networks
+    command: |
+     openstack port create --network {{ item.network }}  --vnic-type direct --disable-port-security vf-{{ item.ip }} --fixed-ip subnet={{ item.subnet }},ip-address={{ item.ip }}
+    with_items: "{{nodes}}"
+
+
+# - hosts: localhost
+#   tasks:
+#     - name: create port in sriov networks
+#       openstack.cloud.port:
+#        state: present
+#        name: vf4
+#        network: sriov
+#        no_security_groups: True
+#        binding_vnic_type: direct
+
+#        fixed_ips:
+#         - ip_address: {{ item.ip }}

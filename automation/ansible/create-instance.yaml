@@ -1,0 +1,8 @@
+- hosts: localhost
+  vars_files:
+      - vars/nodes-sriov.yml
+  tasks:
+    - name: create port in sriov networks
+      include: ./tasks/create-port.yaml
+    - name: create instance
+      include: ./tasks/create-instance-sriov-port.yaml

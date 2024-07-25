@@ -1,0 +1,79 @@
+- hosts: localhost
+  tasks:
+    - name: "deploy instance instance-centos7u"
+      os_server:
+            state: present
+            name: "instance-centos7u"
+            image: "centos7u"
+            flavor: m1.small
+            security_groups: allowall
+            key_name: "undercloud-key"
+            boot_from_volume: False
+            # terminate_volume: yes
+            nics:
+              - net-name: public-net
+            userdata: |
+              #cloud-config
+              cloud_init_modules:
+                - migrator
+                - cc_disk_setup
+                - bootcmd
+                - write-files
+                - growpart
+                - resizefs
+                - set_hostname
+                - update_hostname
+                - update_etc_hosts
+                - rsyslog
+                - users-groups
+                - ssh
+              cloud_config_modules:
+                - mounts
+                - locale
+                - set-passwords
+                - yum-add-repo
+                - timezone
+                - disable-ec2-metadata
+                - runcmd
+                - package-update-upgrade-install
+              cloud_final_modules:
+                - scripts-per-once
+                - scripts-per-boot
+                - scripts-per-instance
+                - scripts-user
+                - ssh-authkey-fingerprints
+                - keys-to-console
+                - final-message
+              hostname: instance
+              fqdn: instance.lab.local
+              manage_etc_hosts: true
+              debug: true
+              output: { all: "| tee -a /var/log/cloud-init-output.log" }
+              package_upgrade: true
+              timezone: "Europe/Paris"
+              users:
+                - default
+                - name: stack
+                  sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+                  groups: wheel,adm
+                  ssh_pwauth: True
+                  ssh_authorized_keys:
+                    - {{IDRSAPUB}}
+                - name: root
+                  ssh_authorized_keys:
+                    - {{IDRSAPUB}}
+              ssh_pwauth: True
+              disable_root: false
+              chpasswd:
+                list: |
+                  root:toor
+                  stack:stack
+                expire: false
+              packages:
+                - wget
+                - httpd
+                - yum-utils
+                - git
+                - vim
+                - tmux
+                - epel-release

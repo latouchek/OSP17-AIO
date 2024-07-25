@@ -1,0 +1,9 @@
+- hosts: localhost
+  vars_files:
+      - vars/nodes-sriov.yml
+  tasks:
+    - name: delete sriov instances
+      include: ./tasks/delete-instance-sriov-port.yaml
+    - name: delete sriov instances
+      include: ./tasks/delete-port.yaml
+      # with_items: "{{nodes}}"

@@ -1,0 +1,4 @@
+  - name: delete  vf-{{ item.ip }} port
+    command: |
+     openstack port delete  vf-{{ item.ip }}
+    with_items: "{{nodes}}"
