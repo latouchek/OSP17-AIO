@@ -163,6 +163,21 @@ The provided Terraform files (`OSP17-AIO.tf`, `network_config-osp17-aio.cfg`, `c
 
 3. **cloud-init-osp17-aio**:
    - This cloud-init script is used for the initial setup and configuration of the OSP node. It handles tasks like setting hostnames, configuring network interfaces, and preparing the system for OSP installation.
+
+### Deploying the VM with Terraform
+
+Navigate to the directory containing your Terraform configuration files and run the following commands to deploy the VM:
+
+1. **Initialize Terraform**:
+   ```bash
+   terraform -chdir=terraform/director-node init
+   ```
+
+2. **Apply the Terraform Plan**:
+   ```bash
+   terraform -chdir=terraform/director-node apply
+   ```
+   You will be prompted to confirm the plan. Type yes to proceed.
 ## Deployment of the Director Node on Bare Metal
 
 ### Manual Configuration Steps for Bare Metal Deployment
