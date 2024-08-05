@@ -44,7 +44,6 @@ wget https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-Generi
 
 openstack image create centos9 --file  centos9.qcow2 --disk-format qcow2 --container-format bare --public
 
-openstack image create centos9 --file centos9.qcow2 --disk-format qcow2 --container-format bare --public
 
 openstack flavor create --id 1 --ram 2048 --disk 10 --vcpus 1 small
 
@@ -67,7 +66,7 @@ openstack security group create all-traffic --description "Security group allowi
 openstack security group rule create --protocol any --ingress all-traffic
 
 
-openstack server create --flavor m1.tiny --image cirros --network provider_network_vlan20 --security-group default --key-name key1 cirros-test
+openstack server create --flavor m1.tiny --image cirros --network provider_network_vlan20 --security-group all-traffic --key-name key1 cirros-test
 
-openstack server create --flavor m1.small --image centos --network provider_network_vlan20 --security-group default --key-name key1 centos-test
+openstack server create --flavor m1.small --image centos9 --network provider_network_vlan20 --security-group all-traffic --key-name key1 centos-test
 
