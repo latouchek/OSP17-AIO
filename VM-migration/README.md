@@ -190,7 +190,7 @@ openstack image create "Windows Server 2022" \
 - **`--public`**: Makes the image accessible to everyone.
 
 
-### Migrating a Linux VM with virt-v2v
+## Example 2: Migrating a Linux VM with virt-v2v
 
 Now, let's walk through the process of migrating a Fedora Linux VM using `virt-v2v`. The steps are similar to those for a Windows VM, but with some Linux-specific considerations.
 
