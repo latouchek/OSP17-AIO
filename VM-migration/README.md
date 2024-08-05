@@ -5,7 +5,7 @@ This guide provides a step-by-step process for migrating a virtual machine (VM) 
 
 ## Example 1: Migrating a Windows Server 2022 VM
 
-### Step 1: Export the VM in OVF or OVA format
+#### Step 1: Export the VM in OVF or OVA format
 First, export the VM from VMware in OVF format.
 
 To export VMs from VMware for migration or backup, you can use tools like `govc` or Ansible. Both options offer robust ways to handle VM exports, depending on whether you prefer command-line operations or automation playbooks.
@@ -38,7 +38,7 @@ To export VMs from VMware for migration or backup, you can use tools like `govc`
 #### Method 2: Exporting with Ansible
 In progress
 
-### Step 2: Convert the VM using virt-v2v
+#### Step 2: Convert the VM using virt-v2v
 To convert the VM disks to a bootable qcow2 format, use the following command:
 
 ```bash
@@ -83,7 +83,7 @@ virt-v2v: This guest requires UEFI on the target to boot.
 [ 107.5] Finishing off
 ```
 
-### Step 3: Fixing the VirtIO Drivers Issue
+#### Step 3: Fixing the VirtIO Drivers Issue
 
 VirtIO drivers are essential for making your VM run smoothly. They replace slow, emulated hardware with fast, paravirtualized devices. Without them, you're stuck with sluggish disk and network speeds.
 
@@ -106,7 +106,7 @@ To get the latest VirtIO drivers, do this:
    Keep it simple: point `virtio-win.iso` to the latest version.
 
 
-### Step 4: Rerun the Conversion with VirtIO Drivers
+#### Step 4: Rerun the Conversion with VirtIO Drivers
 ```bash
 virt-v2v -i ova Windows-ovf -o local -of qcow2 -os Windows-kvm
 ```
@@ -133,7 +133,7 @@ virt-v2v: This guest requires UEFI on the target to boot.
 [ 112.4] Finishing off
 ```
 
-### Step 5: Verify the Conversion
+#### Step 5: Verify the Conversion
 To verify the converted files, navigate to the output directory and inspect the qcow2 image:
 
 ```bash
@@ -162,7 +162,7 @@ Child node '/file':
     disk size: 9.75 GiB
 ```
 
-### Step 6: Create a UEFI-Compatible Glance Image
+#### Step 6: Create a UEFI-Compatible Glance Image
 
 After converting the VM to a qcow2 format, you need to ensure it boots with UEFI, as noted:
 
