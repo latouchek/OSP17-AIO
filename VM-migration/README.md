@@ -287,3 +287,7 @@ virt-v2v -i ova Fedora-ovf -o local -os Fedora-kvm
    - **File System Checks**: Run file system checks and repairs if there were any indications of file system issues.
 
    Using `virt-customize` or similar tools, you can make these adjustments safely without needing to boot the VM, thus preventing potential boot failures and ensuring a smoother transition into the OpenStack environment. This approach also allows for automation and scripting, making it easier to apply consistent changes across multiple VM images.
+
+## Example 3: Using the Conversion Appliance
+
+In Progress.....

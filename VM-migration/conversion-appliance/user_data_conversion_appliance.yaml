@@ -1,0 +1,48 @@
+#cloud-config
+
+hostname: conversion-appliance
+fqdn: conversion-appliance.lab.local
+manage_etc_hosts: false
+debug: true
+output: { all: "| tee -a /var/log/cloud-init-output.log" }
+package_upgrade: true
+rh_subscription:
+    username: change me
+    password: change me
+    auto-attach: false
+users:
+  - default
+  - name: redhat
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: wheel,adm
+    ssh_pwauth: True
+    ssh_authorized_keys:
+      - changeme
+  - name: root
+    ssh_authorized_keys:
+      - changeme
+ssh_pwauth: True
+disable_root: false
+chpasswd:
+  list: |
+    root:toor
+    redhat:redhat
+  expire: false
+growpart:
+  mode: auto
+  devices: ['/']
+packages:
+  - bash-completion
+  - jq
+  - wget
+  - tmux
+  - virt-v2v
+mounts:
+  - [ "nfs share", "/data", "nfs", "defaults", "0", "0" ]
+runcmd:
+  - dnf groupinstall 'Virtualization Host' 'Development Tools' 'Container Management' 'System Tools' 'Development Tools'  -y
+  - systemctl enable --now cockpit.socket
+  - mkdir -p /data
+  - mount -a
+power_state:
+   mode: reboot
