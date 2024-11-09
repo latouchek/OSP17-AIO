@@ -315,9 +315,9 @@ At the end of the conversion, the Conversion Appliance will have as many attache
 
 - **VDDK Installation:** Install the VMware Virtual Disk Development Kit (VDDK) on the Conversion Appliance. The VDDK provides the necessary libraries for **virt-v2v** to access VMware virtual disk files (VMDKs) directly.
 
-**Deployment Assistance:**
 
-A Terraform script is provided in this repository to help you quickly deploy and configure the Conversion Appliance with all required components and credentials.
+
+**Tip**: A Terraform script is provided in this repository to help you quickly deploy and configure the Conversion Appliance with all required components and credentials.
 
 In the example below, we will walk through the entire migration process using the Conversion Appliance.
 
@@ -419,6 +419,34 @@ virt-v2v: This guest has virtio drivers installed.
 - **Copying disks**: Each disk is copied to a corresponding Cinder volume in OpenStack.
 - **Creating output metadata**: Generates necessary metadata for the converted VM.
 - **Finishing off**: Completes the conversion process.
+
+The following diagram illustrates how virt-v2v operates:
+
+
+```plaintext
+
+                  VMware Environment                             OpenStack Environment
+         +-----------------------------+               +--------------------------------------------+
+         |        vCenter Server       |               |          Conversion Appliance              |
+         |                             |               |                                            |
+         |  +-----------------------+  |   Connect     |   +------------------------+               |
+         |  |       ESXi Host       |  |<--------------|   |      virt-v2v Tool     |               |
+         |  |                       |  |               |   |   (uses VDDK to        |               |
+         |  |  +-----------------+  |  |               |   |   access VMDK files)   |               |
+         |  |  |   Source VM     |  |  |               |   +------------------------+               |
+         |  |  +-----------------+  |  |               |            |                               |
+         |  +-----------------------+  |               |            v                               |
+         +-----------------------------+               |   +----------------------+                 |
+                                                       |   |   Cinder Volume 0    |                 |
+        Access VMDK Files Directly                     |   +----------------------+                 |
+        using VDDK Libraries                           |   |   Cinder Volume 1    |                 |
+                                                       |   +----------------------+                 |
+                                                       |   |   Cinder Volume 2    |                 |
+                                                       |   +----------------------+                 |
+                                                       |                                            |
+                                                       +--------------------------------------------+
+
+```
 
 ## Handling Cinder Volumes Post-Conversion
 
