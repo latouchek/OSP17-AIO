@@ -7,9 +7,11 @@ debug: true
 output: { all: "| tee -a /var/log/cloud-init-output.log" }
 package_upgrade: true
 rh_subscription:
-    username: change me
-    password: change me
+    username: 
+    password: 
     auto-attach: false
+    enable-repo:
+        - openstack-17-tools-for-rhel-9-x86_64-rpms
 users:
   - default
   - name: redhat
@@ -17,17 +19,18 @@ users:
     groups: wheel,adm
     ssh_pwauth: True
     ssh_authorized_keys:
-      - changeme
+      - l
   - name: root
     ssh_authorized_keys:
-      - changeme
+      - 
 ssh_pwauth: True
 disable_root: false
 chpasswd:
-  list: |
-    root:toor
-    redhat:redhat
   expire: false
+  users:
+  - {name: redhat, password: redhat, type: text}
+  - {name: root, password: toor, type: text}
+    
 growpart:
   mode: auto
   devices: ['/']
@@ -37,12 +40,29 @@ packages:
   - wget
   - tmux
   - virt-v2v
-mounts:
-  - [ "nfs share", "/data", "nfs", "defaults", "0", "0" ]
+  - nfs-utils
+  - python3-openstackclient
 runcmd:
   - dnf groupinstall 'Virtualization Host' 'Development Tools' 'Container Management' 'System Tools' 'Development Tools'  -y
-  - systemctl enable --now cockpit.socket
-  - mkdir -p /data
+  - dnf install -y python3-openstackclient
+  - systemctl enable --now cockpit.socket ; sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+  - mkdir -p /DATA ; echo "10.90.158.16:/DATA /DATA nfs defaults 0 0" | sudo tee -a /etc/fstab
   - mount -a
+write_files:
+- path: /root/overcloudrc
+  content: |
+    #!/usr/bin/env bash
+    export OS_AUTH_URL=https://10.90.158.20:13000
+    export OS_PROJECT_NAME=admin
+    export OS_PROJECT_DOMAIN_NAME=Default
+    export OS_USERNAME=admin
+    export OS_USER_DOMAIN_NAME=Default
+    export OS_PASSWORD=RedHat2024!
+    export OS_REGION_NAME=regionOne
+    export OS_IDENTITY_API_VERSION=3
+    export OS_VOLUME_API_VERSION=3
+    export OS_CACERT=~/.config/openstack/standalone-ca.crt
+  owner: 'root:root'
+  permissions: '0755'
 power_state:
    mode: reboot
