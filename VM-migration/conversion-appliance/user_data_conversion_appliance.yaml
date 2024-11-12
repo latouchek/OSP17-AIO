@@ -19,7 +19,7 @@ users:
     groups: wheel,adm
     ssh_pwauth: True
     ssh_authorized_keys:
-      - l
+      - 
   - name: root
     ssh_authorized_keys:
       - 
@@ -57,7 +57,7 @@ write_files:
     export OS_PROJECT_DOMAIN_NAME=Default
     export OS_USERNAME=admin
     export OS_USER_DOMAIN_NAME=Default
-    export OS_PASSWORD=RedHat2024!
+    export OS_PASSWORD=
     export OS_REGION_NAME=regionOne
     export OS_IDENTITY_API_VERSION=3
     export OS_VOLUME_API_VERSION=3

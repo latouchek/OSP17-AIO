@@ -595,3 +595,14 @@ Step 4: Complete VM Creation          +-----------------------------------+
 - **Step 4: Complete VM Creation**
   - Finalize the creation of the new VM, which now replicates the disk configuration of the original VMware VM.
 
+
+## Example 4: Full Automation of the Migration Process
+
+For users seeking a fully automated approach to migrating VMs from VMware to OpenStack, my colleague **Greg Procunier** has developed a comprehensive solution, available in this [GitHub repository](https://github.com/gprocunier/vmware-to-openstack/tree/main). This framework automates each stage of the migration process—from discovering source VMs to deploying OpenStack instances—making it feasible to handle large-scale migrations with minimal manual intervention.
+
+**Key Features of the Automation Framework:**
+
+- **Automated VM Selection and Conversion:** Scripts streamline **virt-v2v** operations, ensuring consistent and reliable conversions.
+- **Post-Conversion Deployment:** The framework automates Cinder volume detachment and OpenStack instance creation, preserving original VM configurations.
+
+
